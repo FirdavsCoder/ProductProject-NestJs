@@ -11,10 +11,21 @@ import { CategoryEntity } from './modules/category/entities/category.entity';
 import { TransactionEntity } from './modules/transaction/entities/transaction.entity';
 import { SharedModule } from './modules/shared/shared.module';
 import { config } from './common/config/config';
-
+import { CacheModule } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-yet';
 
 @Module({
   imports: [
+    CacheModule.registerAsync({
+      isGlobal: true,
+      useFactory: async () => {
+        const store = await redisStore({
+          socket: { host: '127.0.0.1', port: 6379 },
+          ttl: 10 * 1000,
+        });
+        return { store };
+      },
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: config.dbHost,
@@ -25,6 +36,12 @@ import { config } from './common/config/config';
       entities: [UserEntity, ProductEntity, CategoryEntity, TransactionEntity],
       synchronize: true,
     }),
-    UserModule, ProductModule, CategoryModule, AuthModule, TransactionModule, SharedModule],
+    UserModule,
+    ProductModule,
+    CategoryModule,
+    AuthModule,
+    TransactionModule,
+    SharedModule,
+  ],
 })
 export class AppModule {}

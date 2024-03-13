@@ -1,5 +1,11 @@
 import { SetMetadata, UseGuards, applyDecorators } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBearerAuth, ApiForbiddenResponse, ApiNotFoundResponse, ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { AuthGuard } from 'src/modules/shared/guards/auth.guard';
 import { RolesGuard } from 'src/modules/shared/guards/role.guard';
 import { RoleEnum } from 'src/common/enums/enum';
@@ -11,8 +17,8 @@ export function Auth(...roles: RoleEnum[]) {
     UseGuards(AuthGuard, RolesGuard),
     ApiBearerAuth(),
     ApiUnauthorizedResponse({ description: 'Unauthorized' }),
-    ApiBadRequestResponse({description: "Bad Request"}),
-    ApiOkResponse({description: "OK"}),
-    ApiForbiddenResponse({description: "Forbidden resource"}),
+    ApiBadRequestResponse({ description: 'Bad Request' }),
+    ApiOkResponse({ description: 'OK' }),
+    ApiForbiddenResponse({ description: 'Forbidden resource' }),
   );
 }

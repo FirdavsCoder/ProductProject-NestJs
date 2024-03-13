@@ -7,10 +7,9 @@ import { CategoryRepository } from './category.repository';
 import { CategoryNotFoundException } from './exception/category.exception';
 import { ResData } from 'src/lib/resData';
 
-
 @Injectable()
 export class CategoryService implements ICategoryService {
-  constructor(private categoryRepository: CategoryRepository){}
+  constructor(private categoryRepository: CategoryRepository) {}
 
   async create(data: CreateCategoryDto): Promise<ResData<CategoryEntity>> {
     const newCategory = new CategoryEntity();
@@ -31,7 +30,10 @@ export class CategoryService implements ICategoryService {
     const allCategories = await this.categoryRepository.findAll();
     return new ResData<Array<CategoryEntity>>('success', 200, allCategories);
   }
-  async update(id: number, data: UpdateCategoryDto): Promise<ResData<CategoryEntity>> {
+  async update(
+    id: number,
+    data: UpdateCategoryDto,
+  ): Promise<ResData<CategoryEntity>> {
     await this.findOneById(id);
     const updatedCategory = await this.categoryRepository.update(id, data);
     return new ResData<CategoryEntity>('success', 200, updatedCategory);
@@ -42,5 +44,4 @@ export class CategoryService implements ICategoryService {
     const deletedCategory = await this.categoryRepository.delete(id);
     return new ResData<CategoryEntity>('success', 200, deletedCategory);
   }
-
 }
