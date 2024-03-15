@@ -13,6 +13,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { config } from './common/config/config';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
+import { FileModule } from './modules/file/file.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { redisStore } from 'cache-manager-redis-yet';
     AuthModule,
     TransactionModule,
     SharedModule,
+    FileModule,
   ],
 })
 export class AppModule {}
