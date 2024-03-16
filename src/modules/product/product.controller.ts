@@ -3,11 +3,11 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
-  Put, UseInterceptors
-} from "@nestjs/common";
+  Put,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -15,8 +15,8 @@ import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from '../auth/decorator/currentUser';
 import { UserEntity } from '../user/entities/user.entity';
 import { Auth } from '../auth/decorator/auth.decorator';
-import { AllProducts, RoleEnum } from "src/common/enums/enum";
-import { CacheInterceptor, CacheKey, CacheTTL } from "@nestjs/cache-manager";
+import { AllProducts, RoleEnum } from 'src/common/enums/enum';
+import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
 
 @ApiTags('product')
 @Controller('product')

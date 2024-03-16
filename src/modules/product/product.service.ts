@@ -73,6 +73,12 @@ export class ProductService implements IProductService {
   }
 
   async findAll(): Promise<ResData<ProductEntity[]>> {
+    const data: ProductEntity[] = await this.cacheManager.get(
+      AllProducts.ALLPRODUCTS,
+    );
+    if (data) {
+      return new ResData('All products', HttpStatus.OK, data);
+    }
     const allProducts = await this.productRepository.findAll();
     return new ResData('All products', HttpStatus.OK, allProducts);
   }

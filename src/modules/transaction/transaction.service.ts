@@ -52,6 +52,16 @@ export class TransactionService implements ITransactionService {
   }
 
   async findAll(): Promise<ResData<TransactionEntity[]>> {
+    const data: TransactionEntity[] = await this.cacheManager.get(
+      AllTransactions.ALLTRANSACTIONS,
+    );
+    if (data) {
+      return new ResData<TransactionEntity[]>(
+        'All Transactions',
+        200,
+        data,
+      );
+    }
     const foundTransactions = await this.repository.findAllTransactions();
     return new ResData<TransactionEntity[]>(
       'All Transactions',

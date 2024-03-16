@@ -42,6 +42,12 @@ export class UserService implements IUserService {
 
   // Find One User
   async findOne(id: number): Promise<ResData<UserEntity>> {
+    const data: UserEntity = await this.cacheManager.get(
+      UserById.USERBYID + id,
+    );
+    if (data) {
+      return new ResData('User Found', 200, data);
+    }
     const foundUser = await this.userRepository.findOne(id);
     if (!foundUser) {
       throw new UserNotFoundException();

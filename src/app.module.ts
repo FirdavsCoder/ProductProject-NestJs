@@ -14,6 +14,7 @@ import { config } from './common/config/config';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
 import { FileModule } from './modules/file/file.module';
+import { FileEntity } from './modules/file/entities/file.entity';
 
 @Module({
   imports: [
@@ -34,7 +35,13 @@ import { FileModule } from './modules/file/file.module';
       username: config.dbUser,
       password: config.dbPassword,
       database: config.dbName,
-      entities: [UserEntity, ProductEntity, CategoryEntity, TransactionEntity],
+      entities: [
+        UserEntity,
+        ProductEntity,
+        CategoryEntity,
+        TransactionEntity,
+        FileEntity,
+      ],
       synchronize: true,
     }),
     UserModule,
